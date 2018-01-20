@@ -1,0 +1,13 @@
+1.fft_batch,传入传出的idata和odata都需要转置，如果在输入的数据按行存储且行表示的是一个子信号。相反的
+如果二维信号的子信号是按列存储的那么，idata和odata不需要转置，但fft_batch里面的参数需要重新设置。
+2.做完ifft_batch需要让每个元素都除以总的信号的大小。
+3.multi_mm.cu
+ /*
+    switch(t){
+    case 1:
+    cusparseOperation_t transA=CUSPARSE_OPERATION_NON_TRANSPOSE;
+    cusparseOperation_t transB=CUSPARSE_OPERATION_NON_TRANSPOSE;
+    default:
+    	 cusparseOperation_t transA=CUSPARSE_OPERATION_NON_TRANSPOSE;
+    	 cusparseOperation_t transB=CUSPARSE_OPERATION_TRANSPOSE;
+     }*/
